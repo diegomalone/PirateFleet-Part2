@@ -162,12 +162,11 @@ extension PirateFleetViewController: PlayerDelegate {
         // if any penalties incurred during the move, show alert
         if let penaltyCell = player.lastHitPenaltyCell {
             
-// TODO:Uncomment once PenaltyCell protocol has been implemented
-//            if penaltyCell.guaranteesHit {
-//                attackedPlayer.availableMoves.append(.GuaranteedHit)
-//            } else {
-//                attackedPlayer.availableMoves.append(.NormalMove)
-//            }
+            if penaltyCell.guaranteesHit {
+                attackedPlayer.availableMoves.append(.GuaranteedHit)
+            } else {
+                attackedPlayer.availableMoves.append(.NormalMove)
+            }
 
             
             // mine penalty
@@ -175,7 +174,7 @@ extension PirateFleetViewController: PlayerDelegate {
                 
                 let alertMessage = (player.playerType == .Human) ? Settings.Messages.HumanHitMine : Settings.Messages.ComputerHitMine
 
-                createAlertWithTitle("Ka-boom!", message: alertMessage, actionMessage: Settings.Messages.DismissAction, completionHandler: { (action) in
+                createAlertWithTitle(mine.penaltyText, message: alertMessage, actionMessage: Settings.Messages.DismissAction, completionHandler: { (action) in
                     self.dismissPenaltyAlert(player)
                 })
             }
@@ -185,7 +184,7 @@ extension PirateFleetViewController: PlayerDelegate {
                 
                 let alertMessage = (player.playerType == .Human) ? Settings.Messages.HumanHitMonster : Settings.Messages.ComputerHitMonster
                 
-                createAlertWithTitle("You hit a Seamonster!", message: alertMessage, actionMessage: Settings.Messages.DismissAction, completionHandler: { (action) in
+                createAlertWithTitle(seamonster.penaltyText, message: alertMessage, actionMessage: Settings.Messages.DismissAction, completionHandler: { (action) in
                     self.dismissPenaltyAlert(player)
                 })
             }

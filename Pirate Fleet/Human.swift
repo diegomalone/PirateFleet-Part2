@@ -37,7 +37,6 @@ class HumanObject: Player, Human {
     
     func addShipToGrid(ship: Ship) {
         gridViewController.addShip(ship)
-        print(ship.cells)
     }
     
     func addMineToGrid(mine: Mine) {

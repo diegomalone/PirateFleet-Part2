@@ -73,20 +73,48 @@ struct Ship {
     }
 }
 
-// TODO: Change Cell protocol to PenaltyCell and add the desired properties
-protocol Cell {
+protocol PenaltyCell {
     var location: GridLocation {get}
+    var guaranteesHit: Bool {get}
+    var penaltyText: String {get}
 }
 
 // TODO: Adopt and implement the PenaltyCell protocol
-struct Mine: Cell {
+struct Mine: PenaltyCell {
     let location: GridLocation
-
+    var guaranteesHit: Bool
+    var penaltyText: String
+    
+    init(location: GridLocation) {
+        self.location = location
+        self.guaranteesHit = false
+        self.penaltyText = "BOOOOOM!"
+    }
+    
+    init(location: GridLocation, penaltyText: String) {
+        self.location = location
+        self.guaranteesHit = false
+        self.penaltyText = penaltyText
+    }
+    
+    init(location: GridLocation, penaltyText: String, guaranteesHit: Bool) {
+        self.location = location
+        self.guaranteesHit = guaranteesHit
+        self.penaltyText = penaltyText
+    }
 }
 
 // TODO: Adopt and implement the PenaltyCell protocol
-struct SeaMonster: Cell {
+struct SeaMonster: PenaltyCell {
     let location: GridLocation
+    var guaranteesHit: Bool
+    var penaltyText: String
+    
+    init(location: GridLocation) {
+        self.location = location
+        self.guaranteesHit = true
+        self.penaltyText = "Whoaa Nessie!"
+    }
 }
 
 class ControlCenter {
@@ -95,28 +123,23 @@ class ControlCenter {
         
         let smallShip = Ship(length: 2, location: GridLocation(x: 3, y: 4), isVertical: true, isWooden: true)
         human.addShipToGrid(smallShip)
-        print(smallShip.cells)
         
         let mediumShip1 = Ship(length: 3, location: GridLocation(x: 0, y: 0), isVertical: false)
         human.addShipToGrid(mediumShip1)
-        print(mediumShip1.cells)
         
         let mediumShip2 = Ship(length: 3, location: GridLocation(x: 3, y: 1), isVertical: false)
         human.addShipToGrid(mediumShip2)
-        print(mediumShip2.cells)
         
         let largeShip = Ship(length: 4, location: GridLocation(x: 6, y: 3), isVertical: true, isWooden: true)
         human.addShipToGrid(largeShip)
-        print(largeShip.cells)
         
         let xLargeShip = Ship(length: 5, location: GridLocation(x: 7, y: 2), isVertical: true)
         human.addShipToGrid(xLargeShip)
-        print(xLargeShip.cells)
         
-        let mine1 = Mine(location: GridLocation(x: 6, y: 0))
+        let mine1 = Mine(location: GridLocation(x: 6, y: 0), penaltyText: "TSAAAAR")
         human.addMineToGrid(mine1)
         
-        let mine2 = Mine(location: GridLocation(x: 3, y: 3))
+        let mine2 = Mine(location: GridLocation(x: 3, y: 3), penaltyText: "BOOOOOOOOOOM!", guaranteesHit: true)
         human.addMineToGrid(mine2)
         
         let seamonster1 = SeaMonster(location: GridLocation(x: 5, y: 6))
