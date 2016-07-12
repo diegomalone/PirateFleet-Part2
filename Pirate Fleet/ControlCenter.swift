@@ -57,11 +57,7 @@ struct Ship {
     }
 
     init(length: Int, location: GridLocation, isVertical: Bool) {
-        self.length = length
-        self.location = location
-        self.isVertical = isVertical
-        self.hitTracker = HitTracker()
-        self.isWooden = false
+        self.init(length: length, location: location, isVertical: isVertical, isWooden: false)
     }
     
     init(length: Int, location: GridLocation, isVertical: Bool, isWooden: Bool) {
@@ -86,9 +82,7 @@ struct Mine: PenaltyCell {
     var penaltyText: String
     
     init(location: GridLocation, penaltyText: String) {
-        self.location = location
-        self.guaranteesHit = false
-        self.penaltyText = penaltyText
+        self.init(location: location, penaltyText: penaltyText, guaranteesHit: false)
     }
     
     init(location: GridLocation, penaltyText: String, guaranteesHit: Bool) {
